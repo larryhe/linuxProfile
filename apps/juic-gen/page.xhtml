@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- $Id$ -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:sfh="http://www.successfactors.com/xi/html"
+      xmlns:as="http://www.successfactors.com/ajaxservice/core"
+      xmlns:smrf="http://www.successfactors.com/smrf/html"
+      xmlns:sfp="http://www.successfactors.com/xi/page"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <smrf:script src="/ui/platform/js/component/jquery.js"/>
+    <smrf:script src="/ui/dpcs/js/{PRJ}{ActionName}Controller.js" />
+    <smrf:script>
+        jQuery.noConflict();//avoid namespace conflict. remove this out after completely migrate to jQuery
+        jQuery(document).ready(function(){
+             new {PRJ}{ActionName}Controller('{action_name}_container');
+        });
+    </smrf:script>
+    <body>
+        <div id="{action_name}_container"></div>
+    </body>
+</html>

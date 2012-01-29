@@ -1,0 +1,7 @@
+linuxProfile
+=============================
+this project was intended to customize my linux working environment including terminal preference setting, vim editor configuration, tailored made script auto completion etc. and I will add more and more features in coming days. 
+
+INSTALL
+==============================
+run setup.sh
