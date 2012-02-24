@@ -94,7 +94,7 @@ endif
 " Script variables {{{1
 let s:fileCache = []
 let s:selection = ""
-let s:cacheOut = glob("~/.vim/.getfiles/fileCache.out")
+let s:cacheOut = glob("~/.vim_get_file_cache.out")
 
 " DoCacheFiles {{{1
 function! s:DoCacheFiles(...)
@@ -124,6 +124,7 @@ function! s:DoCacheFiles(...)
 			endif
 		endfor
                 "write all entries to file
+                echo "write index to file " . s:cacheOut
                 :call writefile(s:fileCache,s:cacheOut)
 		echo "Found " . ctr . " new files in '" . d . "'. Cache has " . len(s:fileCache) . " entries."
 	endfor

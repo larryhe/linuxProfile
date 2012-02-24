@@ -6,6 +6,8 @@ set shiftwidth=4
 set smartindent
 set incsearch
 set number
+" gvim setting go here
+set guifont=Mono\ 12
 " enable matchit plugin
 :filetype plugin on
 " map F2 to NERDTreeToggle command

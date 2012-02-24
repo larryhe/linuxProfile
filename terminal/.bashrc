@@ -124,12 +124,14 @@ alias jeclipse='$DEV_HOME/eclipse/eclipse'
 alias cppeclipse='$DEV_HOME/eclipsecpp/eclipse'
 alias sqldev='$DEV_HOME/SQLDeveloper/sqldeveloper.sh'
 alias gototrk='cd $SF_HOME'
+alias ghack='cd ~/workspace/prjs'
 alias start-openvpn='echo 99999999 | sudo -S /etc/init.d/openvpn start openvpn'
 alias stop-openvpn='echo 99999999 | sudo -S /etc/init.d/openvpn stop openvpn'
 alias connect_test_server='ssh 192.168.25.37 -l platform'
 alias syncBldRun='cd $SF_HOME && git svn rebase && ant rebuild && jboss_run_main.sh'
+alias gvim='gvim -f'
 #misc variables
-#export http_proxy=http://192.168.25.131:8888
+export http_proxy=192.168.25.17:9999
 #ENV variables go here
 export JAVA_HOME=~/workspace/jdk1.6.0_20
 #export JBOSS_HOME=~/workspace/jboss
@@ -145,12 +147,4 @@ export SCRIPT_HOME=~/scripts
 export DEV_HOME=~/workspace
 export SF_HOME="$DEV_HOME/v4.git"
 export PATH=~/juic-gen/bin:$PATH:$ANT_HOME/bin:$M2_HOME/bin:$ORACLE_HOME/bin:$SCRIPT_HOME:$JAVA_HOME/bin:.
-#setup iOS development tool chain
-export target=arm-apple-darwin10
-export prefix=~/iostoolchain/pre
-export sysroot=~/iostoolchain/sys
-export PATH="${prefix}/bin":$PATH
-export cctools=~/iostoolchain/src/cctools
-export gcc=~/iostoolchain/src/gcc
-export csu=~/iostoolchain/src/csu
-export build=~/iostoolchain/bld
+#colorscheme setting for terminal
