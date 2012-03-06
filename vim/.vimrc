@@ -54,3 +54,5 @@ map <F4>g <Esc>:lcd %:p:h<CR>
 ""imap <C-n> <Esc>:bn<CR>
 ""map <C-p> <Esc>:bp<CR>
 ""imap <C-p> <Esc>:bp<CR>
+" insert new line under command mode
+map <CR> o<Esc>
