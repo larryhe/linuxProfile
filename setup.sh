@@ -17,3 +17,5 @@ done
 
 #install vim gvim and exuberant ctags package from debian
 sudo apt-get install vim vim-gnome exuberant-ctags
+#enable bash completion case in-sensitive
+sudo echo "set completion-ignore-case on" >> /etc/inputrc
