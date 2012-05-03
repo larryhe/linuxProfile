@@ -1,4 +1,4 @@
-" customized setting goes here
+
 " Indentation settings
 set expandtab
 set softtabstop=4
@@ -10,8 +10,6 @@ set number
 set guifont=Mono\ 12
 " enable matchit plugin
 :filetype plugin on
-" map F2 to NERDTreeToggle command
-map <F2> :NERDTreeToggle<CR>
 " map F3 to Taglist toggle command
 map <F3> :TlistToggle<CR>
 "set dictionary to look up
@@ -41,6 +39,7 @@ map <F3>x :w<CR>:!cd $SF_HOME && ant deploy-xhtml<CR>
 map <F3>c :w<CR>:!cd $SF_HOME && ant deploy-css<CR>
 map <F3>p :w<CR>:!cd $SF_HOME && ant deploy-jsp<CR>
 map <F3>a :w<CR>:!cd $SF_HOME && ant deploy-css deploy-js deploy-xhtml deploy-jsp<CR>
+map <F3>m :w<CR>:!cp -r ~/workspace/hmp.git/src/main/webapp/ui/homepage/ ~/workspace/v4.git/web/ui && cd $SF_HOME && ant deploy-css deploy-js deploy-xhtml<CR>
 "setting for getfiles plugin (getfiles.vim)
 let g:cwdir = "~/workspace/v4.git"
 let g:GetFileIgnoreList = ['*.jpg','*.png','*.gif','*.class','*.jar','*.zip','*/tmp/*','*/bin/*','*/build/*','*/.svn/*','*/settings/*','*/test/*']
@@ -56,3 +55,5 @@ map <F4>g <Esc>:lcd %:p:h<CR>
 ""imap <C-p> <Esc>:bp<CR>
 " insert new line under command mode
 map <CR> o<Esc>
+"" map Ctrl-shift-c to copy all content of current buffer to clipboard
+noremap <c-c> <Esc>ggVG"+y
