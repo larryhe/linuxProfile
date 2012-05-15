@@ -41,11 +41,10 @@ map <F3>p :w<CR>:!cd $SF_HOME && ant deploy-jsp<CR>
 map <F3>a :w<CR>:!cd $SF_HOME && ant deploy-css deploy-js deploy-xhtml deploy-jsp<CR>
 map <F3>m :w<CR>:!cp -r ~/workspace/hmp.git/src/main/webapp/ui/homepage/ ~/workspace/v4.git/web/ui && cd $SF_HOME && ant deploy-css deploy-js deploy-xhtml<CR>
 "setting for getfiles plugin (getfiles.vim)
-let g:cwdir = "~/workspace/v4.git"
-let g:GetFileIgnoreList = ['*.jpg','*.png','*.gif','*.class','*.jar','*.zip','*/tmp/*','*/bin/*','*/build/*','*/.svn/*','*/settings/*','*/test/*']
+let g:GetFileIgnoreList = ['*.jpg','*.png','*.gif','*.class','*.jar','*.zip','*/tmp/*','*/bin/*','*/build/*','*/.svn/*','*/settings/*','*/test/*','*/build_resources/*','*/target/*']
 let g:GetFileAutoFillFolder = 2
-imap <F4>i <Esc>:exe "GetFileCacheFiles " g:cwdir<CR>
-map <F4>i <Esc>: exe "GetFileCacheFiles " g:cwdir<CR>
+imap <F4>i <Esc>:GetFileCacheFiles<CR>
+map <F4>i <Esc>:GetFileCacheFiles<CR>
 imap <F4>f <Esc>:w<CR>:GetFile<CR>
 map <F4>f <Esc>:w<CR>:GetFile<CR>
 map <F4>g <Esc>:lcd %:p:h<CR>

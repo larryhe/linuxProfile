@@ -76,7 +76,7 @@ endif
 let g:loaded_getFile=1
 
 " Create commands {{{1
-command -nargs=*  -complete=dir GetFileCacheFiles :call s:DoCacheFiles(<f-args>)
+command -nargs=*  -complete=dir GetFileCacheFiles :call s:DoCacheFiles()
 command GetFile :call s:DoGetFile()
 command GetFileClearCache :call s:DoCacheClear()
 
@@ -94,52 +94,76 @@ endif
 " Script variables {{{1
 let s:fileCache = []
 let s:selection = ""
-let s:cacheOut = glob("~/.vim_get_file_cache.out")
+let s:cacheFile = ""
+let s:cacheFileName = ".getFiles.cache"
+
+"search from the current working directory upwards until cache file was found
+function! s:LocateCacheFile()
+    let result = findfile(s:cacheFileName, getcwd() . ";")
+    if empty(result)
+        echo "cache file was not found"
+        let s:cacheFile = input("Specify where to store cache file:", getcwd(), "file")
+        let s:cacheFile = substitute(s:cacheFile, "/*$", "", "") . "/" . s:cacheFileName
+    else
+        let s:cacheFile = result
+    endif
+    echo "use " . s:cacheFile . " for indexing"
+endfunction
 
 " DoCacheFiles {{{1
-function! s:DoCacheFiles(...)
+function! s:DoCacheFiles()
+    if empty(s:cacheFile)
+        :call s:LocateCacheFile()
+        :call s:GenerateIndexFile()
+    endif
+endfunction
+
+function! s:GenerateIndexFile()
     echo "Caching files..."
-	for d in a:000
-		"Creates the dictionary that will parse all files recursively
-		for i in g:GetFileIgnoreList
-			let s = "setlocal wildignore+=" . i
-			exe s
-		endfor
-		let files = glob(d . "/**")
-		for i in g:GetFileIgnoreList
-			let s = "setlocal wildignore-=" . i
-			exe s
-		endfor
-		let ctr = 0
-                "filter directory entry out from list
-		for f in split(files, "\n")
-			let fpath = fnamemodify(f, ":p")
-			" We only glob the files, not directory
-			if !isdirectory(fpath)
-				" If the cache already has this entry, we'll just skip it
-                            if index(s:fileCache, fpath) == -1
-                                :call add(s:fileCache, fpath)
-                                let ctr = ctr + 1
-                            endif
-			endif
-		endfor
-                "write all entries to file
-                echo "write index to file " . s:cacheOut
-                :call writefile(s:fileCache,s:cacheOut)
-		echo "Found " . ctr . " new files in '" . d . "'. Cache has " . len(s:fileCache) . " entries."
-	endfor
+        "Creates the dictionary that will parse all files recursively
+        for i in g:GetFileIgnoreList
+                let s = "setlocal wildignore+=" . i
+                exe s
+        endfor
+        let files = glob(getcwd() . "/**")
+        for i in g:GetFileIgnoreList
+                let s = "setlocal wildignore-=" . i
+                exe s
+        endfor
+        let ctr = 0
+        "filter directory entry out from list
+        for f in split(files, "\n")
+                let fpath = fnamemodify(f, ":p")
+                " We only glob the files, not directory
+                if !isdirectory(fpath)
+                        " If the cache already has this entry, we'll just skip it
+                    if index(s:fileCache, fpath) == -1
+                        :call add(s:fileCache, fpath)
+                        let ctr = ctr + 1
+                    endif
+                endif
+        endfor
+        "write all entries to file
+        echo "write index to file " . s:cacheFile
+        :call writefile(s:fileCache,s:cacheFile)
+        echo "Found " . ctr . " new files in '" . s:cacheFile . "'. Cache has " . len(s:fileCache) . " entries."
 endfunction
 
 " CacheClear {{{1
 function! s:DoCacheClear()
 	let s:fileCache = []
-        :call delete(s:cacheOut)
+        :call delete(s:cacheFile)
 	echo "GetFile cache cleared."
 endfunction
 
 " DoGetFile {{{1
 function! s:DoGetFile()
-
+    if empty(s:cacheFile)
+        :call s:LocateCacheFile()
+        if !filereadable(s:cacheFile)
+            :call s:GenerateIndexFile()
+        endif
+    endif
     " Open the buffer
     :call s:OpenBuffer()
     " Key Mapping inside buffer
@@ -236,7 +260,7 @@ function! s:UpdateDisplay()
         "endfor
         "end improve this time consuming operation by grep the pattern from file
         "build grep command properly 
-        let l:grepexp= "grep " . getline(1) . " " . s:cacheOut
+        let l:grepexp= "grep -i " . getline(1) . " " . s:cacheFile
         echo "executing command " . l:grepexp
         let results = split(system(l:grepexp),"\n")
 
