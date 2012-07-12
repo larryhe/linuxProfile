@@ -78,6 +78,7 @@ let g:loaded_getFile=1
 " Create commands {{{1
 command -nargs=*  -complete=dir GetFileCacheFiles :call s:DoCacheFiles()
 command GetFile :call s:DoGetFile()
+command SearchFiles :call s:DoSearchFiles()
 command GetFileClearCache :call s:DoCacheClear()
 
 " Default values {{{1
@@ -96,6 +97,7 @@ let s:fileCache = []
 let s:selection = ""
 let s:cacheFile = ""
 let s:cacheFileName = ".getFiles.cache"
+let s:actionCommand = "grep"
 
 "search from the current working directory upwards until cache file was found
 function! s:LocateCacheFile()
@@ -156,12 +158,14 @@ function! s:DoCacheClear()
 	echo "GetFile cache cleared."
 endfunction
 
-" DoGetFile {{{1
-function! s:DoGetFile()
-    if empty(s:cacheFile)
-        :call s:LocateCacheFile()
-        if !filereadable(s:cacheFile)
-            :call s:GenerateIndexFile()
+" ActionCommand {{{1
+function! s:ActionCommand()
+    if s:actionCommand == "grep"
+        if empty(s:cacheFile)
+            :call s:LocateCacheFile()
+            if !filereadable(s:cacheFile)
+                :call s:GenerateIndexFile()
+            endif
         endif
     endif
     " Open the buffer
@@ -178,7 +182,18 @@ function! s:DoGetFile()
 
     " Start typing...
     startinsert
+endfunction
 
+" DoGetFile {{{1
+function! s:DoGetFile()
+    let s:actionCommand = "grep"
+    :call s:ActionCommand()
+endfunction
+
+" DoSearchFiles {{{1
+function! s:DoSearchFiles()
+    let s:actionCommand = "find"
+    :call s:ActionCommand()
 endfunction
 
 " OpenBuffer {{{1
@@ -239,9 +254,6 @@ function! s:UpdateDisplay()
         let pattern = getline(1)
 
         "enhanced to search the pattern using grep
-        "let pattern = s:EscapeChars(pattern)
-        "let pattern = s:ConvertWildcards(pattern)
-        "end enhanced to search the pattern using grep
 
         if g:GetFileIgnoreCase
             let pattern = '\c' . pattern
@@ -260,9 +272,12 @@ function! s:UpdateDisplay()
         "endfor
         "end improve this time consuming operation by grep the pattern from file
         "build grep command properly 
-        let l:grepexp= "grep -i " . getline(1) . " " . s:cacheFile
-        echo "executing command " . l:grepexp
-        let results = split(system(l:grepexp),"\n")
+        let l:actionExpression= "grep -i " . getline(1) . " " . s:cacheFile
+        if s:actionCommand == "find"
+            let l:actionExpression= 'find ' . getcwd() . ' -name ' . '"*' . getline(1) . '*"' 
+        endif
+        echo "executing command " . l:actionExpression
+        let results = split(system(l:actionExpression),"\n")
 
         let colPos = col(".")
         " Clear the screen

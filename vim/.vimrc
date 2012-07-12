@@ -5,6 +5,7 @@ set softtabstop=4
 set shiftwidth=4
 set smartindent
 set incsearch
+set hlsearch
 set number
 " gvim setting go here
 set guifont=Mono\ 12
@@ -47,6 +48,8 @@ imap <F4>i <Esc>:GetFileCacheFiles<CR>
 map <F4>i <Esc>:GetFileCacheFiles<CR>
 imap <F4>f <Esc>:w<CR>:GetFile<CR>
 map <F4>f <Esc>:w<CR>:GetFile<CR>
+imap <F4>s <Esc>:w<CR>:SearchFiles<CR>
+map <F4>s <Esc>:w<CR>:SearchFiles<CR>
 map <F4>g <Esc>:lcd %:p:h<CR>
 ""map <C-n> <Esc>:bn<CR>
 ""imap <C-n> <Esc>:bn<CR>
