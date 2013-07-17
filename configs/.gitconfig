@@ -5,6 +5,7 @@
 	autocrlf = input
 	safecrlf = true
 	excludesfile = /home/larry/.gitignore_global
+	fileMode = false
 [alias]
     co = checkout
     ci = commit
