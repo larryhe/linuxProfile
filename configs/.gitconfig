@@ -2,7 +2,7 @@
 	name = Larry He
 	email = larry.he@veevasystems.com
 [core]
-	autocrlf = input
+	autocrlf = false
 	safecrlf = true
 	excludesfile = /Users/larryhe/.gitignore_global
 	fileMode = false

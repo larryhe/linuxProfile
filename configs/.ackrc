@@ -1,0 +1,2 @@
+--ignore-dir=is:target
+--ignore-dir=is:test

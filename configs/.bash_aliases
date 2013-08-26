@@ -7,10 +7,11 @@ alias vpn-disconn='sudo vpnc-disconnect'
 alias jbossrun='jboss_run_main.sh'
 alias jeclipse='$DEV_HOME/eclipse/eclipse'
 alias sqldev='$DEV_HOME/SQLDeveloper/sqldeveloper.sh'
-alias gototrk='cd $DEV_HOME/Vault'
+alias gototrk='cd $DEV_HOME/vault.git'
 alias mvncln='mvn clean install -DskipTests'
 alias mvnbld='mvn install -DskipTests'
-alias allinone='git svn rebase && mvncln && deployall'
 alias jssearch='grep --exclude-dir="*target*" --include="*.js"'
 alias jspsearch='grep --exclude-dir="*target*" --include="*.jspx"'
 alias github="cd ~/workspace/github/"
+alias psh_git="git pull --rebase && git push"
+alias allinone='git pull --rebase && mvncln && deployall'
