@@ -4,11 +4,13 @@ DST_TOMCAT="/usr/local/apache-tomcat/6.0.32"
 SRC_JMVC=$PROJ_DIR/WzlUI/src/main/webapp/JMVC 
 SRC_UI_VIEW=$PROJ_DIR/WzlUI/src/main/webapp/WEB-INF/views 
 SRC_VMC_VIEW=$PROJ_DIR/WzlVMC/src/main/webapp/WEB-INF/views 
-SRC_ANNOTATE=$PROJ_DIR/AnnotateApp/src/main/webapp/annotate
-DST_JMVC="${DST_TOMCAT}/webapps/ui/JMVC"
-DST_UI_VIEW="${DST_TOMCAT}/webapps/ui/WEB-INF/views"
+SRC_ANNOTATE=$PROJ_DIR/WzlUI/src/main/webapp/annotate
+SRC_PHP=$PROJ_DIR/AnnotateApp/src/main/webapp/annotate
+DST_JMVC="${DST_TOMCAT}/webapps/ROOT/ui-resources/JMVC"
+DST_UI_VIEW="${DST_TOMCAT}/webapps/ROOT/WEB-INF/views"
 DST_VMC_VIEW="${DST_TOMCAT}/webapps/vmc/WEB-INF/views"
-DST_ANNOTATE="${DST_TOMCAT}/webapps/annotate/annotate"
+DST_ANNOTATE="${DST_TOMCAT}/webapps/ROOT/ui-resources/annotate"
+DST_PHP="${DST_TOMCAT}/webapps/annotate/annotate"
 
 execute_command(){
     file=$1 
@@ -16,6 +18,7 @@ execute_command(){
     target="${target/$SRC_UI_VIEW/$DST_UI_VIEW}" 
     target="${target/$SRC_VMC_VIEW/$DST_VMC_VIEW}" 
     target="${target/$SRC_ANNOTATE/$DST_ANNOTATE}" 
+    target="${target/$SRC_PHP/$DST_PHP}" 
     #command="echo $file $target" 
     command="scp -P 2222 $file root@my.veevavault.com:${target}" 
     echo "executing ${command}" 
