@@ -23,7 +23,6 @@
 # Logs and databases #
 ######################
 *.log
-*.sql
 *.sqlite
 
 # OS generated files #
@@ -45,6 +44,8 @@ PdfGenerator/.classpath
 PdfGenerator/.project
 Solr/.classpath
 Solr/.project
+*/bin/
+/WzlUI/grunt/*
 
 #settings
 .settings

@@ -1,2 +1,3 @@
 --ignore-dir=is:target
 --ignore-dir=is:test
+--type-set=less:ext:less

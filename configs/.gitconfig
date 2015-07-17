@@ -5,7 +5,8 @@
 	autocrlf = false
 	safecrlf = true
 	excludesfile = /Users/larryhe/.gitignore_global
-	fileMode = false
+	filemode = false
+	whitespace = cr-at-eol
 [alias]
     co = checkout
     ci = commit
