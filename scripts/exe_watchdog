@@ -1,34 +1,15 @@
 #!/bin/bash
 PROJ_DIR="/Users/larryhe/workspace/vault.git"
 DST_TOMCAT="/usr/local/apache-tomcat/vault.1"
-SRC_JMVC=$PROJ_DIR/WzlUI/src/main/webapp/JMVC 
-SRC_COMMON=$PROJ_DIR/WzlUI/src/main/webapp/components
-SRC_PKG=$PROJ_DIR/WzlUI/src/main/webapp/scripts
-SRC_UI_VIEW=$PROJ_DIR/WzlUI/src/main/webapp/WEB-INF/views 
-SRC_VMC_VIEW=$PROJ_DIR/WzlVMC/src/main/webapp/WEB-INF/views 
-SRC_ANNOTATE=$PROJ_DIR/WzlUI/src/main/webapp/annotate
-SRC_TMPL=$PROJ_DIR/WzlUI/src/main/webapp/templates
-SRC_LESS="$PROJ_DIR/WzlUI/src/main/webapp/styles/less"
-DST_JMVC="${DST_TOMCAT}/webapps/ROOT/ui-resources/JMVC"
-DST_COMMON="${DST_TOMCAT}/webapps/ROOT/ui-resources/components"
-DST_PKG="${DST_TOMCAT}/webapps/ROOT/ui-resources/scripts"
-DST_UI_VIEW="${DST_TOMCAT}/webapps/ROOT/WEB-INF/views"
-DST_VMC_VIEW="${DST_TOMCAT}/webapps/vmc/WEB-INF/views"
-DST_ANNOTATE="${DST_TOMCAT}/webapps/ROOT/ui-resources/annotate"
-DST_TMPL="${DST_TOMCAT}/webapps/ROOT/ui-resources/templates"
-DST_LESS="${DST_TOMCAT}/webapps/ROOT/ui-resources/styles/less"
+SRC_WEBAPP=$PROJ_DIR/WzlUI/src/main/webapp
+SRC_JSPX=$PROJ_DIR/WzlUI/src/main/webapp/WEB-INF/views 
+DST_WEBAPP="${DST_TOMCAT}/webapps/ROOT/ui-resources"
+DST_JSPX="${DST_TOMCAT}/webapps/ROOT/WEB-INF/views"
 
 execute_command(){
     file=$1 
-    target="${file/$SRC_JMVC/$DST_JMVC}" 
-    target="${target/$SRC_COMMON/$DST_COMMON}" 
-    target="${target/$SRC_PKG/$DST_PKG}" 
-    target="${target/$SRC_UI_VIEW/$DST_UI_VIEW}" 
-    target="${target/$SRC_VMC_VIEW/$DST_VMC_VIEW}" 
-    target="${target/$SRC_ANNOTATE/$DST_ANNOTATE}" 
-    target="${target/$SRC_PHP/$DST_PHP}" 
-    target="${target/$SRC_TMPL/$DST_TMPL}" 
-    target="${target/$SRC_LESS/$DST_LESS}" 
+    target="${file/$SRC_JSPX/$DST_JSPX}" 
+    target="${target/$SRC_WEBAPP/$DST_WEBAPP}" 
     #command="echo $file $target" 
     command="scp -P 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $file root@my.vaultdev.com:${target}" 
     echo "executing ${command}" 

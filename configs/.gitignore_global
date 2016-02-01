@@ -57,3 +57,6 @@ Solr/.project
 .project
 js.tags
 .tern-project
+node_modules/
+jspm_packages/
+build/
