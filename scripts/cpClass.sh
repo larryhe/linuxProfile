@@ -2,9 +2,9 @@
 PROJ_DIR="/Users/larryhe/workspace/vault.git"
 DST_TOMCAT="/usr/local/apache-tomcat/vault.1"
 SRC_WEBAPP=$PROJ_DIR/WzlUI/src/main/webapp
-SRC_JSPX=$PROJ_DIR/WzlUI/src/main/webapp/WEB-INF/
+SRC_JSPX=$PROJ_DIR/WzlUI/src/main/webapp/WEB-INF/views 
 DST_WEBAPP="${DST_TOMCAT}/webapps/ROOT/ui-resources"
-DST_JSPX="${DST_TOMCAT}/webapps/ROOT/WEB-INF/"
+DST_JSPX="${DST_TOMCAT}/webapps/ROOT/WEB-INF/views"
 
 execute_command(){
     file=$1 
@@ -14,7 +14,6 @@ execute_command(){
     command="scp -P 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $file root@my.vaultdev.com:${target}" 
     echo "executing ${command}" 
     eval $command
-    ssh -p 2222 root@my.vaultdev.com -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "chown tomcat6:tomcat6 ${target}"
 }
 
 execute_command $*

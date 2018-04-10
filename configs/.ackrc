@@ -2,3 +2,4 @@
 --ignore-dir=is:test
 --type-set=less:ext:less
 --type-set=hbs:ext:hbs
+--type-set=scss:ext:scss

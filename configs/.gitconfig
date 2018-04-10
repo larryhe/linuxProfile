@@ -7,6 +7,7 @@
 	excludesfile = /Users/larryhe/.gitignore_global
 	filemode = false
 	whitespace = cr-at-eol
+	editor = /usr/local/bin/vim
 [alias]
     co = checkout
     ci = commit
